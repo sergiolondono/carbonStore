@@ -12,3 +12,23 @@
  
 <button class="btn btn-success" [disabled]="!selectedFiles"
 	(click)="upload()">Upload</button>
+
+
+	<table class="table table-responsive table-bordered 
+	table-hover text-center">
+		<thead class="thead-dark">
+			<tr>
+				<th>Nombre</th>
+				<th>Ver imágen</th>             
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let file of listFiles">
+				<td>{{file.name}}</td>
+				<td>
+					<a href="{{file.url}}"
+					target="_blank">{{file.url}}</a>
+				</td>
+			</tr>
+		  </tbody>
+	</table>

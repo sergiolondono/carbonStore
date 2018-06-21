@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'; 
 import {FileUpload} from '../fileupload';
 import { UploadFileService } from '../services/upload-file.service';
+import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'form-upload',
@@ -13,9 +15,19 @@ export class FormUploadComponent implements OnInit {
   currentFileUpload: FileUpload
   progress: {percentage: number} = {percentage: 0}
  
-  constructor(private uploadService: UploadFileService) {}
+  listFiles;
+
+  constructor(private uploadService: UploadFileService, private db: AngularFireDatabase) {
+
+  }
  
   ngOnInit() {
+     this.db.list('uploads/').valueChanges()
+    .subscribe(files => {
+      this.listFiles = files;
+      console.log(files);
+    }); 
+    console.log(this.listFiles);  
   }
  
   selectFile(event) {
